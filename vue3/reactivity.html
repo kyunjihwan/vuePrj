@@ -1,0 +1,28 @@
+<div id="app">
+  <!-- 렌더링 될 무언가 -->
+</div>
+
+<script>
+  const data = {
+    message: 10,
+  };
+
+  function render(sth) {
+    const div = document.querySelector("#app");
+
+    div.innerHTML = sth;
+  }
+
+  const app = new Proxy(data, {
+    // get() data에 접근할 때마다 호출할 메소드
+    get() {
+      console.log("값 접근");
+    },
+    // set() data 값 변경 시 호출할 메소드
+    set(target, prop, newValue) {
+      console.log("값 갱신");
+      target[prop] = newValue;
+      render(newValue);
+    },
+  });
+</script>
